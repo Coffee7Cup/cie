@@ -12,7 +12,7 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
 		"predeploy": "npm run build",
-  		"deploy": "gh-pages -d dist"
+		"deploy": "gh-pages -d dist"
 	},
 	"files": [
 		"dist",
@@ -38,6 +38,7 @@
 		"@eslint/compat": "^1.4.0",
 		"@eslint/js": "^9.39.1",
 		"@sveltejs/adapter-auto": "^7.0.0",
+		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.48.5",
 		"@sveltejs/package": "^2.5.6",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
