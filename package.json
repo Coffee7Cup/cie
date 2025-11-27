@@ -1,5 +1,5 @@
 {
-	"name": "cie-3",
+	"name": "cie",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",

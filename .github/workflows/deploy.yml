@@ -1,0 +1,52 @@
+# .github/workflows/deploy.yml
+
+name: Deploy SvelteKit to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or 'master', depending on your default branch
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm' # Or 'yarn', 'pnpm'
+
+      - name: Install dependencies
+        run: npm install # Or 'yarn install', 'pnpm install'
+
+      - name: Build with SvelteKit
+        # CRITICAL: If you use the `base` path in svelte.config.js, pass it here as an environment variable
+        run: npm run build
+        env:
+          NODE_ENV: production # Ensure base path is used in svelte.config.js
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # The SvelteKit static adapter outputs files to 'build' by default
+          path: './build' 
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
